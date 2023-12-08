@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<!-- menu -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="form.html">Поиск</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+
+    <!-- main article -->
+    <article>
+
+        <h1>Проект - парсинг HH</h1>
+        <p class="lead">Параметры поиска вакансий</p>
+        <p>
+            <form action="contacts.html" method="get">
+                <p>
+                    <input type="text" id="query_string" name="query_string" placeholder="Какие вакансии искать">
+                    <br>
+                </p>
+                <p>
+                    <label for="regions">Выберите регионы для поиска</label>
+                    <br>
+                    <select id="regions" name="search_regions">
+                        <option value="113">Вся Россия</option>
+                        <option value="113:1">Москва</option>
+                        <option value="113:2">Петербург</option>
+                    </select>
+                </p>
+                <br>
+                <button type="submit">Поиск</button>
+
+            </form>
+        </p>
+    </article>
+
+
+</body>
+</html>
+
