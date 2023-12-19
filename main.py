@@ -4,81 +4,7 @@ import time  # Для задержки между запросами
 import os  # Для работы с файлами
 import pprint
 import list_with_counter
-
-
-def get_areas():
-    with requests.get('https://api.hh.ru/areas') as req:
-        data = req.content.decode()
-
-    jsObj = json.loads(data)
-    areas = []
-    for k in jsObj:
-        for i in range(len(k['areas'])):
-            if len(k['areas'][i]['areas']) != 0:  # Если у зоны есть внутренние зоны
-                for j in range(len(k['areas'][i]['areas'])):
-                    areas.append([k['id'],
-                                  k['name'],
-                                  k['areas'][i]['areas'][j]['id'],
-                                  k['areas'][i]['areas'][j]['name']])
-            else:  # Если у зоны нет внутренних зон
-                areas.append([k['id'],
-                              k['name'],
-                              k['areas'][i]['id'],
-                              k['areas'][i]['name']])
-    return areas
-
-
-def get_sallary(vacancy):
-    # print(vac)
-    sal_txt = vac['salary']
-    if sal_txt is None:
-        return None, None
-    else:
-        currency = sal_txt['currency']
-        sal_from = sal_txt['from']
-        sal_to = sal_txt['to']
-
-    # print('currency: ', currency, '   ', type(currency))
-    # print('sal_from: ', sal_from, '   ', type(sal_from))
-    # print('sal_to: ', sal_to, '   ', type(sal_to))
-
-    # Вычисляем среднюю ЗП
-    if sal_from is not None:
-        if sal_to is not None:
-            return currency, (sal_to - sal_from) / 2.0
-        else:
-            return currency, sal_from
-    else:
-        if sal_to is not None:
-            return currency, sal_to
-        else:
-            return currency, None
-
-
-def get_requirements(vacancy):
-    snip = vacancy['snippet']
-
-    requirement = snip['requirement']
-
-    # print(requirement)
-    if requirement is None:
-        return list()
-    else:
-        requirements = requirement.split(".")
-        'Убираем лишние пробелы'
-        for i in range(len(requirements)):
-            requirements[i] = requirements[i].strip()
-        return requirements
-
-
-def get_page(params, page=0):
-    # Справочник для параметров GET-запроса
-    params['page'] = page,  # Индекс страницы поиска на HH
-
-    with requests.get('https://api.hh.ru/vacancies', params) as req:  # Посылаем запрос к API
-        data = req.content.decode()  # Декодируем его ответ, чтобы Кириллица отображалась корректно
-
-    return data
+from hh_functions import get_page,get_requirements, get_sallary
 
 
 # Собираем требования
@@ -124,10 +50,6 @@ while concurrent_page <= v_pages:
 
 requirements.sort_by_value()
 
-#print(requirements)
-#print(sallaries)
-#print(not_zero_sallaries)
-#print(vacancies_count)
 
 # Считаем % от требований
 

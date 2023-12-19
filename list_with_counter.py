@@ -47,5 +47,20 @@ class list_with_counter:
     def __getitem__(self, key):
         return self.list_items[key]
 
+    def get_top(self, count):
+        self.sort_by_value()
+        if len(self.list_items)>=count:
+            newdic={}
+            counter = 0
+            for key, value in self.list_items.items():
+                counter +=1
+                newdic[key] = value
+                if counter>count:
+                    return newdic
+
+
+        else:
+            return self.list_items
+
 
 
