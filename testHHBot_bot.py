@@ -6,7 +6,7 @@ import requests
 import pprint
 import time
 
-TOKEN = '6877572969:AAHdKL0FKFnPSsThHzZzMuU3hfaM6ksuZwQ'
+TOKEN = 'токен'
 
 bot=telebot.TeleBot(TOKEN)
 
